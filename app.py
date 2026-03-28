@@ -6,7 +6,24 @@ from PIL import Image
 import json
 import re
 
-genai.configure(api_key="GEMINI_API_KEY")
+import os
+import streamlit as st
+import google.generativeai as genai
+from PIL import Image
+import json
+import re
+import time
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# локально берёт из .env, на Streamlit Cloud из st.secrets
+try:
+    api_key = st.secrets["GEMINI_API_KEY"]
+except:
+    api_key = os.getenv("GEMINI_API_KEY")
+
+genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 PROMPT = """
